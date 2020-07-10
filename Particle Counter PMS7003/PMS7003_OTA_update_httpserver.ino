@@ -1,37 +1,48 @@
+//===================================================================================================
+/*
+  This code reads data from Plantower PMS 7003 air quality sensor and sends it to a local HTTP server.
+  Be sure to update the correct SSID and PASSWORD before running to allow connection to your WiFi 
+  network.
+
+  Please refer to the readme.md file at https://github.com/shescitech/TIFR_Mask_Efficiency for 
+  detailed instructions.
+*/
+//===================================================================================================
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <ESP8266HTTPUpdateServer.h>
 
+//===================================================================================================
+//                Replace with your network credentials (IMPORTANT)
+//===================================================================================================
+const char* ssid = "BB30";
+const char* password = "bb302445";
+//===================================================================================================
 const char* host = "esp8266-webupdate";
 const char* update_path = "/update";
 const char* update_username = "admin";
 const char* update_password = "admin";
-
-// Replace with your network credentials
-const char* ssid = "BB30";
-const char* password = "bb302445";
-
-const char* hotspot_id = "PMS7003";   //Alterntive Hotspot identifier
-#define MAX_SRV_CLIENTS 3           //how many clients should be able to telnet to this ESP8266
-ESP8266WebServer webserver(80);       //instantiate server at port 80 (http port)
+const char* hotspot_id = "PMS7003";   // Alterntive Hotspot identifier
+#define MAX_SRV_CLIENTS 3             // how many clients should be able to telnet to this ESP8266
+#define LENGTH 32                     // length of data to be transmitted
+ESP8266WebServer webserver(80);       // instantiate server at port 80 (http port)
 ESP8266HTTPUpdateServer httpUpdater;
-WiFiServer telnetserver(23);              //Telnet server at port 23
+WiFiServer telnetserver(23);              // Telnet server at port 23
 WiFiClient serverClients[MAX_SRV_CLIENTS];
 String page = "";
-unsigned long previousMillis = 0;        // will store last temp was read
+unsigned long previousMillis = 0;         // will store last temp was read
 unsigned long elapsedMillis = 0;
 unsigned long timer = 0;
-unsigned long time_interval = 20000;     // collect and send data after 20 seconds
+unsigned long time_interval = 20000;      // collect and send data after 20 seconds
 float timepassed = 0;
 bool flag = false;
 int ledPin = 2;
 bool ledState = LOW;
-#define LENGTH 32              // length of data to be transmitted
 char startByte1 = 0x42;
 char startByte2 = 0x4d;
-uint16_t DATA[16] = {};
+uint16_t DATA[16] = {};                   // will store data
 char buf[LENGTH];
 char buf2[LENGTH];
 int count = 0;
@@ -45,6 +56,9 @@ uint16_t PM1_ATM, PM2_5_ATM, PM10_ATM ;
 //number of particles with diameter beyond 0.3, 0.5, 1.0, 2.5, 5.0 and 10 um in 0.1 L of air
 uint16_t NP_0_3, NP_0_5, NP_1_0, NP_2_5, NP_5_0, NP_10_0;
 
+//===================================================================================================
+//                    Power on setup
+//===================================================================================================
 void setup() {
   Serial.begin(9600); // opens Serial port, sets data rate to 9600 bps
   pinMode(ledPin, OUTPUT);
@@ -96,6 +110,9 @@ void setup() {
   previousMillis = millis();
 }
 
+//===================================================================================================
+//                    Main Program Loop
+//===================================================================================================
 void loop() {
   webserver.handleClient();
   MDNS.update();
@@ -121,12 +138,11 @@ void loop() {
 
     }
 
-
-    for (int i = 0; i < LENGTH; i++) { // copy data buffer
+    for (int i = 0; i < LENGTH; i++) {        // copy data buffer
       buf2[i] = buf[i];
     }
 
-    for (int i = 0; i < LENGTH; i++) { // find start bytes position
+    for (int i = 0; i < LENGTH; i++) {        // find start bytes position
 
       if (buf[i] == startByte1) {
 
@@ -195,7 +211,9 @@ void loop() {
   }
 }
 
-// Function for sending the data to http client
+//===================================================================================================
+//                    Function for sending the data to http client
+//===================================================================================================
 void SendData() {
 
   page = "{";
@@ -218,7 +236,9 @@ void SendData() {
 
 }
 
-// Function for sending the IP address of this ESP8266 to http client
+//===================================================================================================
+//               Function for sending the IP address of this ESP8266 to http client
+//===================================================================================================
 void SendIP() {
 
   page = "{\"IP\" : \"" + WiFi.localIP().toString() + "\"}";
@@ -227,7 +247,9 @@ void SendIP() {
 
 }
 
-// Function for scanning avialble Wifi SSID
+//===================================================================================================
+//                Function for scanning avialble Wifi SSID
+//===================================================================================================
 void ScanForWifi()
 {
   Serial.print("Scan start ... ");
@@ -244,7 +266,9 @@ void ScanForWifi()
   delay(5000);
 }
 
+//===================================================================================================
 // Function for searching alternative Wifi hotspot to retrieve the correct Wifi ssid and password
+//===================================================================================================
 void CheckWifiSSIDPassword(String str)
 {
 
