@@ -219,7 +219,7 @@ void SendData() {
   page = "{";
   page += "\"Time_passed\" : \"" + String(elapsedMillis) + " milliseconds" + "\",";
   page += "\"PM1.0_CF\" : \"" + String(PM1_CF) + "\",";
-  page += "\"PM2.0_CF\" : \"" + String(PM2_5_CF) + "\",";
+  page += "\"PM2.5_CF\" : \"" + String(PM2_5_CF) + "\",";
   page += "\"PM10_CF\" : \"" + String(PM10_CF) + "\",";
   page += "\"PM1.0_ATM\" : \"" + String(PM1_ATM) + "\",";
   page += "\"PM2.5_ATM\" : \"" + String(PM2_5_ATM) + "\",";
