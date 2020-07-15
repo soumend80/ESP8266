@@ -12,7 +12,7 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
-#include <ESP8266HTTPUpdateServer.h>
+#include "ESP8266HTTPUpdateServerCustom.h"
 
 //===================================================================================================
 //                Replace with your network credentials (IMPORTANT)
@@ -28,7 +28,7 @@ const char* hotspot_id = "PMS7003";   // Alterntive Hotspot identifier
 #define MAX_SRV_CLIENTS 3             // how many clients should be able to telnet to this ESP8266
 #define LENGTH 32                     // length of data to be transmitted
 ESP8266WebServer webserver(80);       // instantiate server at port 80 (http port)
-ESP8266HTTPUpdateServer httpUpdater;
+ESP8266HTTPUpdateServerCustom httpUpdater;
 WiFiServer telnetserver(23);              // Telnet server at port 23
 WiFiClient serverClients[MAX_SRV_CLIENTS];
 String page = "";
