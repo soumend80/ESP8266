@@ -17,8 +17,8 @@
 //===================================================================================================
 //                Replace with your network credentials (IMPORTANT)
 //===================================================================================================
-const char* ssid = "BB30";
-const char* password = "bb302445";
+const char* ssid = "Your WiFi SSID";
+const char* password = "Your WiFi password";
 //===================================================================================================
 const char* host = "esp8266-webupdate";
 const char* update_path = "/update";
