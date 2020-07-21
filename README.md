@@ -12,7 +12,7 @@ This folder consists of some ESP8266 related codes.
 
 ## General Instructions for using most of the codes
 
-1. After downloading the repository go to the particular folder and open the main code __".ino"__ file.
+1. After downloading the repository go to the particular folder and open the main code __.ino__ file.
 2. Connect the esp8266 based board to your computer via a usb cable.
 3. Choose the correct port from __Tools > Port__. In case of windows operating system you can get the port no. from Device Manager > Ports. Look for the one which mentions usb-serial.
 4. Go back to arduino IDE and select your ESP8266 board from __Tools > Board__ menu after installation.
