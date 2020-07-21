@@ -10,7 +10,7 @@ This folder consists of some ESP8266 related codes.
 4. Open Boards Manager from __Tools > Board__ menu and search for esp8266.
 5. There will be one option by __ESP8266 community__. Select the latest version from the drop-down box and click install button.
 
-## Using the codes
+## General Instructions for using most of the codes
 
 1. After downloading the repository go to the particular folder and open the main code __"......ino"__ file.
 2. Connect the esp8266 based board to your computer via a usb cable.
