@@ -4,8 +4,8 @@
   Be sure to update the correct SSID and PASSWORD before running to allow connection to your WiFi 
   network.
 
-  Please refer to the readme.md file at https://github.com/shescitech/TIFR_Mask_Efficiency for 
-  detailed instructions.
+  Please refer to the readme.md file at https://github.com/shescitech/TIFR_Mask_Efficiency/tree/master/Arduino
+  for detailed instructions.
 */
 //===================================================================================================
 #include <ESP8266WiFi.h>
